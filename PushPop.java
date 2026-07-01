@@ -1,0 +1,35 @@
+import java.util.*;
+public class PushPop
+{
+	public static void main(String[] args) {
+		int n = 5;
+		int pushed[] = {1,2,3,4,5};
+		int poped[] = {4,5,3,2,1};
+		int index = 0;
+		Stack <Integer> s = new Stack<>();
+		for (int i=0; i<n; i++)
+		{
+		    s.push(pushed[i]);
+		    if(s.peek() == poped[index])
+		    {
+		        s.pop();
+		        index ++;
+		    }
+		}
+		for (int i=index; i<n; i++)
+		{
+		    if(s.peek() == poped[index])
+		    {
+		        s.pop();
+		        index ++;
+		    }
+		}
+		if(s.isEmpty())
+		{
+		    System.out.print("True");
+		}
+		else{
+		    System.out.print("False");
+		}
+	}
+}
