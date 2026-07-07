@@ -1,62 +1,51 @@
-public class MergeSort {
+public class Main {
 
-    // Merge Sort Function
-    static void mergeSort(int[] arr, int left, int right) {
+    static void mergeSort(int[] arr, int low, int high) {
 
-        if (left < right) {
+        if (low < high) {
 
-            int mid = (left + right) / 2;
+            int mid = (low + high) / 2;
 
-            mergeSort(arr, left, mid);      // Left half
-            mergeSort(arr, mid + 1, right); // Right half
+            mergeSort(arr, low, mid);       // Left half
+            mergeSort(arr, mid + 1, high);  // Right half
 
-            merge(arr, left, mid, right);   // Merge both halves
+            merge(arr, low, mid, high);     // Merge
         }
     }
 
-    // Merge Function
-    static void merge(int[] arr, int left, int mid, int right) {
+    static void merge(int[] arr, int low, int mid, int high) {
 
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
+        int left = low;
+        int right = mid + 1;
 
-        int[] L = new int[n1];
-        int[] R = new int[n2];
+        int[] temp = new int[high - low + 1];
+        int index = 0;
 
-        // Copy left array
-        for (int i = 0; i < n1; i++)
-            L[i] = arr[left + i];
+        while (left <= mid && right <= high) {
 
-        // Copy right array
-        for (int j = 0; j < n2; j++)
-            R[j] = arr[mid + 1 + j];
-
-        int i = 0, j = 0, k = left;
-
-        // Merge the two arrays
-        while (i < n1 && j < n2) {
-
-            if (L[i] <= R[j]) {
-                arr[k] = L[i];
-                i++;
+            if (arr[left] <= arr[right]) {
+                temp[index++] = arr[left];
+                left++;
             } else {
-                arr[k] = R[j];
-                j++;
+                temp[index++] = arr[right];
+                right++;
             }
-            k++;
         }
 
-        // Copy remaining elements
-        while (i < n1) {
-            arr[k] = L[i];
-            i++;
-            k++;
+        while (left <= mid) {
+            temp[index++] = arr[left];
+            left++;
         }
 
-        while (j < n2) {
-            arr[k] = R[j];
-            j++;
-            k++;
+        while (right <= high) {
+            temp[index++] = arr[right];
+            right++;
+        }
+
+        int j = 0;
+
+        for (int i = low; i <= high; i++) {
+            arr[i] = temp[j++];
         }
     }
 
